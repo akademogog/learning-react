@@ -1,51 +1,67 @@
-import React, { useState } from 'react'
-// import useRef from 'react';
-import PostList from './components/PostList'
-import MyButton from './components/UI/button/MyButton'
-import MyInput from './components/UI/input/MyInput'
+import React, { useState } from "react";
+import { PostForm } from "./components/PostForm";
+import PostList from "./components/PostList";
+import MySelect from "./components/UI/select/MySelect";
 
 function App() {
   const [posts, setPosts] = useState([
-    {id: 1, title: 'Javascript 1', body: 'Javascript - язык программирования'},
-    {id: 2, title: 'Javascript 2', body: 'Javascript - язык программирования'},
-    {id: 3, title: 'Javascript 3', body: 'Javascript - язык программирования'}
-  ])
+    {
+      id: 1,
+      title: "аа",
+      body: "бб",
+    },
+    {
+      id: 2,
+      title: "гг 2",
+      body: "аа",
+    },
+    {
+      id: 3,
+      title: "вв 3",
+      body: "яя",
+    },
+  ]);
+  const [selectedSort, setSelectedSort] = useState("");
 
-  const [post, setPost] = useState({
-    title: '',
-    body: ''
-  })
-  // const bodyInputRef = useRef() // Для неуправляемого компонента (хук useRef)
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost]);
+  };
 
-  const addNewPost = (e) => {
-    e.preventDefault()
-    setPosts([...posts, {...post, id: posts.length + 1}])
-    setPost({
-      title: '',
-      body: ''
-    })
-    // console.log(bodyInputRef.current.value); // Для неуправляемого компонента (хук useRef)
-  }
+  const removePost = (post) => {
+    setPosts(posts.filter((p) => p.id !== post.id));
+  };
+
+  const sortPosts = (sort) => {
+    setSelectedSort(sort);
+    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])));
+  };
 
   return (
     <div className="App">
-      <form>
-        <MyInput
-          value={post.title}
-          onInput={e => setPost({...post, title: e.target.value})}
-          type="text"
-          placeholder='Название поста'
+      <PostForm posts={posts} create={createPost} />
+      <hr style={{ margin: "15px 0" }} />
+      <div>
+        <MySelect
+          dafaultValue="Сортировка"
+          value={selectedSort}
+          onChange={sortPosts}
+          options={[
+            { value: "title", name: "По названию" },
+            { value: "body", name: "По описанию" },
+          ]}
         />
-        <MyInput
-          // ref={bodyInputRef} // Для неуправляемого компонента (хук useRef)
-          value={post.body}
-          onInput={e => setPost({...post, body: e.target.value})}
-          type="text"
-          placeholder='Описание поста'
-        />
-        <MyButton onClick={addNewPost}>Создать пост</MyButton>
-      </form>
-      <PostList posts={posts} title='Посты про JS'/>
+      </div>
+      {posts.length !== 0 ? (
+        <PostList posts={posts} remove={removePost} title="Посты про JS" />
+      ) : (
+        <h1
+          style={{
+            textAlign: "center",
+          }}
+        >
+          Посты не были найдены :(
+        </h1>
+      )}
     </div>
   );
 }

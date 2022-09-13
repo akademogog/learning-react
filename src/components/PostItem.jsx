@@ -1,19 +1,19 @@
-import React from 'react'
+import React from "react";
 
-function PostItem(props) {
+function PostItem({ post, number, remove }) {
   return (
     <div className="post">
-        <div className="post__content">
-          <strong>{props.post.id}. {props.post.title}</strong>
-          <div>
-            {props.post.body}
-          </div>
-        </div>
-        <div className="post__btns">
-          <button>Удалить</button>
-        </div>
+      <div className="post__content">
+        <strong>
+          {number}. {post.title}
+        </strong>
+        <div>{post.body}</div>
+      </div>
+      <div className="post__btns">
+        <button onClick={() => remove(post)}>Удалить</button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default PostItem
+export default PostItem;
