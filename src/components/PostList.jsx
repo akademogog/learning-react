@@ -3,6 +3,18 @@ import PostItem from "../components/PostItem";
 import "../styles/App.css";
 
 function PostList({ posts, title, remove }) {
+  if (!posts.length) {
+    return (
+      <h1
+        style={{
+          textAlign: "center",
+        }}
+      >
+        Посты не были найдены :(
+      </h1>
+    );
+  }
+
   return (
     <div>
       <h1
