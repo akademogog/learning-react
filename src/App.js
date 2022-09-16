@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PostFilter from "./components/PostFilter";
 import { PostForm } from "./components/PostForm";
 import PostList from "./components/PostList";
@@ -23,18 +23,16 @@ function App() {
     setPosts(respons.data);
   }
 
+  useEffect(() => {
+    fetchPosts();
+  }, [])
+  
   const removePost = (post) => {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
 
   return (
     <div className="App">
-      <MyButton
-        style={{ marginTop: "20px" }}
-        onClick={fetchPosts}
-      >
-        Загрузить посты
-      </MyButton>
       <MyButton
         style={{ marginTop: "20px" }}
         onClick={() => setVisibleModal(true)}
