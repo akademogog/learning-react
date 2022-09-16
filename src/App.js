@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import PostFilter from "./components/PostFilter";
 import { PostForm } from "./components/PostForm";
@@ -17,6 +18,11 @@ function App() {
     setVisibleModal(false);
   };
 
+  async function fetchPosts() {
+    const respons = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    setPosts(respons.data);
+  }
+
   const removePost = (post) => {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
@@ -24,7 +30,13 @@ function App() {
   return (
     <div className="App">
       <MyButton
-        style={{ marginTop: "30px" }}
+        style={{ marginTop: "20px" }}
+        onClick={fetchPosts}
+      >
+        Загрузить посты
+      </MyButton>
+      <MyButton
+        style={{ marginTop: "20px" }}
         onClick={() => setVisibleModal(true)}
       >
         Создать пост
