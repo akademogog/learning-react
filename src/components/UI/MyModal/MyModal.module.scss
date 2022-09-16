@@ -6,6 +6,7 @@
     right: 0;
     display: none;
     background-color: rgba(#000000, 0.5);
+    backdrop-filter: blur(5px);
 
     &Content {
         padding: 25px;
