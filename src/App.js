@@ -54,7 +54,7 @@ function App() {
   return (
     <div className="App">
       <MyButton style={{marginTop: '30px'}} onClick={() => setVisibleModal(true)}>Создать пост</MyButton>
-      <hr style={{margin: '10px 0px'}} />
+      <hr style={{margin: '10px 0px 5px'}} />
       <PostFilter filter={filter} setFilter={setFilter} />
       <PostList
         posts={sortedAndSearchedPosts}
